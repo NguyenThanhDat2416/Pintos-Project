@@ -2,6 +2,10 @@
 #define USERPROG_PROCESS_H
 
 #include "threads/thread.h"
+#include <stdlib.h>
+
+void parse_filename(const char *src, char *dest);
+void construct_esp(char *file_name, void **esp);
 
 tid_t process_execute (const char *file_name);
 int process_wait (tid_t);
