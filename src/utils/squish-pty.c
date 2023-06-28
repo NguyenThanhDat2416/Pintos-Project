@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-// #include <libspl/stropts.h>
+#include <libspl/stropts.h>
 #include <sys/ioctl.h>
 #include <sys/stat.h>
 #include <sys/time.h>
@@ -91,7 +91,7 @@ handle_error (ssize_t retval, int *fd, bool fd_is_pty, const char *call)
               *fd = -1;
             }
           else
-            fail_io ("%s", call); 
+            fail_io (call); 
         }
     }
   else 
@@ -102,7 +102,7 @@ handle_error (ssize_t retval, int *fd, bool fd_is_pty, const char *call)
           *fd = -1;
         }
       else
-        fail_io ("%s", call);
+        fail_io (call);
     }
 }
 
