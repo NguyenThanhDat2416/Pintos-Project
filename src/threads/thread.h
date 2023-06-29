@@ -93,7 +93,6 @@ struct thread
     /* Shared between thread.c and synch.c. */
     struct list_elem elem;              /* List element. */
 
-#ifdef USERPROG
     /* Owned by userprog/process.c. */
     uint32_t *pagedir;    
     int child_lockk;              /* Page directory. */
@@ -104,6 +103,7 @@ struct thread
     struct list_elem child_elem;
     int exit_status;
     struct file* fd[128];
+#ifdef USERPROG
 #endif
 
     /* Owned by thread.c. */

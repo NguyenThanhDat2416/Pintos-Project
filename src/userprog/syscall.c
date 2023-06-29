@@ -1,9 +1,17 @@
 #include "userprog/syscall.h"
-#include <stdio.h>
+#include "lib/stdio.h"
+#include "lib/kernel/stdio.h"
 #include <syscall-nr.h>
 #include "threads/interrupt.h"
 #include "threads/thread.h"
 #include "threads/vaddr.h"
+#include "threads/synch.h"
+#include "threads/palloc.h"
+#include "threads/malloc.h"
+#include "userprog/pagedir.h"
+#include "userprog/process.h"
+#include "devices/shutdown.h"
+#include "devices/input.h"
 
 static void syscall_handler(struct intr_frame *);
 
@@ -22,7 +30,7 @@ void check_user_vaddr(const void *vaddr)
 
 static void syscall_handler(struct intr_frame *f)
 {
-  // Lấy giá trị của system call từ địa chỉ ESP  //f->esp đại diện cho giá trị hiện tại của ESP (địa chỉ của đỉnh ngăn xếp) trong intr_frame (cấu trúc lưu trữ các thông tin của một khung ngắn)
+  // Lấy giá trị của system call từ địa chỉ ESP  //f->esp đại diện cho giá trị hiện tại của ESP (địa chỉ của đỉnh ngăn xếp) trong intr_frame (cấu trúc lưu trữ các thông tin của một khung ngắt)
   uint32_t syscall_number = *(uint32_t *)(f->esp);
 
   // Kiểm tra tính hợp lệ của địa chỉ người dùng
@@ -279,4 +287,3 @@ void close(int fd)
   thread_current()->fd[fd] = NULL;
   return file_close(fp);
 }
-// done userprog basic system call
